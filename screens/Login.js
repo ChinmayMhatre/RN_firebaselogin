@@ -1,5 +1,6 @@
 import { useNavigation } from "@react-navigation/core";
 import React, { useEffect, useState } from "react";
+import {createUserWithEmailAndPassword,signInWithEmailAndPassword} from 'firebase/auth'
 import {
   KeyboardAvoidingView,
   StyleSheet,
@@ -26,8 +27,7 @@ const Login = () => {
   }, []);
 
   const handleSignUp = () => {
-    auth
-      .createUserWithEmailAndPassword(email, password)
+    createUserWithEmailAndPassword(auth,email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
       })
@@ -35,10 +35,10 @@ const Login = () => {
   };
 
   const handleLogin = () => {
-    auth
-      .signInWithEmailAndPassword(email, password)
+    signInWithEmailAndPassword(auth,email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
+        console.log(user);
       })
       .catch((error) => alert(error.message));
   };
